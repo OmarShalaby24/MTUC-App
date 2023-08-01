@@ -131,11 +131,9 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         Certificate_Data = {}
         if self.workingPath.text() == "":
             self.pickDirectory.setStyleSheet("border: 1px solid red;")
-            # Certificate_Data["CertNo"] = "5"
             error = True
         else:
             self.pickDirectory.setStyleSheet("")
-            # Certificate_Data["WorkingDirectoryPath"] = self.workingPath.text()
 
         if self.course.currentText() == "":
             self.course.setStyleSheet("border: 1px solid red;")
@@ -168,7 +166,7 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
                 self.fromWhere_ar.setStyleSheet("")
                 error = False
                 Certificate_Data["FromWhere_Ar"] = self.fromWhere_ar.text()
-
+        #TODO: check if in the database (Future Work)
         # if self.CertNo.text() == "":
         #     self.CertNo.setStyleSheet("border: 1px solid red;")
         #     error = True
@@ -212,6 +210,7 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         else:
             self.Date_of_Birth.setStyleSheet("")
             Certificate_Data["Date_of_Birth"] = self.Date_of_Birth.text()
+        #TODO: check if in the database (Future Work)
         # if self.regNo.text() == "":
         #     self.regNo.setStyleSheet("border: 1px solid red;")
         #     error = True
@@ -280,15 +279,11 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
                 msg.setStandardButtons(
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
                 )
-
-                # msg.setDefaultButton(QMessageBox.StandardButton.Yes)
-
                 Certificate_Data["Expire_date"] = self.Expire_Date.text()
                 Certificate_Data["RegNo"] = "H" + f"{int(self.regNo.text()):07d}"
                 Certificate_Data["Rules"] = self.rulesCode.text()
                 self.resultLabel.setText("Created Successfully")
                 self.resultLabel.setStyleSheet("color: green;")
-                # print(Certificate_Data)
                 certificateGenerator = CertificateController.CertificateController(
                     Certificate_Data, self.WorkingDirectoryPath
                 )
