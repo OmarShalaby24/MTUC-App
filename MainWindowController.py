@@ -262,6 +262,14 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             self.Issue_Date.setStyleSheet("")
             Certificate_Data["Issue_date"] = self.Issue_Date.text()
             dateError2 = False
+        # TODO: Check for all certificates not just the total number
+        if not os.path.exists("Templates/") or not len(os.listdir("Templates/")) == 8:
+            error = True
+            self.uploadCerts.setStyleSheet("border: 1px solid red;")
+        else:
+            error = False
+            self.uploadCerts.setStyleSheet("")
+        
         if error == False and dateError1 == False and dateError2 == False:
             try:
                 msg = QMessageBox()
