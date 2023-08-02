@@ -1,4 +1,4 @@
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate, RichText
 from pathlib import Path
 import datetime, os
 import LoadData as ld
@@ -44,8 +44,20 @@ class CertificateController:
         nonExpireCourses = self.Loader.coursesWithNoExpireDate()
         if self.data["courseCode"] in nonExpireCourses:
             self.data["Expire_date"] = "--/--/----"
+            
+        def formatName(str, length):
+            if len(str) > length:
+                size = 10*2
+            else:
+                size = 14*2
+            return RichText(str, size=size)
+        
+        #TODO: uncomment the following lines when adding {{r <var> }} in the template
+        # ask for the max length of the name in English and Arabic
         context = {
             "CertNo": self.data["courseCode"] + str(self.data["CertNo"]),
+            # "Name_En": formatName(self.data["Name_En"], 30),
+            # "Name_Ar": formatName(self.data["Name_Ar"], 35),
             "Name_En": self.data["Name_En"],
             "Name_Ar": self.data["Name_Ar"],
             "Place_of_Birth_En": self.data["Place_of_Birth_En"],
