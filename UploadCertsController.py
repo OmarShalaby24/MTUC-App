@@ -62,7 +62,7 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
             if self.Paths[i] == None or self.Paths[i] == "" or self.Paths[i] == "Templates/" + i + ".docx":
                 continue
             try:
-                shutil.copyfile(self.Paths[i], "Templates/" + i + ".docx")
+                shutil.copy2(self.Paths[i], "Templates/" + i + ".docx")
             except:
                 continue
         window.close()
