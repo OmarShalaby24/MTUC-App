@@ -1,3 +1,6 @@
 __pycache__
 *.docx
 *.doc
+build
+dist
+*.spec

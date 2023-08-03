@@ -4,7 +4,8 @@ import os
 
 class LoadData:
     def __init__(self):
-        self.path = os.path.dirname(os.path.abspath(__file__))
+        print(os.path.dirname(os.path.abspath("./dist")))
+        self.path = os.path.dirname(os.path.abspath("./dist"))
         self.path = os.path.join(self.path, "Courses Data.xlsx")
         self.wb = openpyxl.load_workbook(self.path)
         self.ws = self.wb.active
