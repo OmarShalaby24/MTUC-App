@@ -33,9 +33,9 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
         self.CancelBtn.clicked.connect(window.close)
 
     def checkTemplates(self, label, button):
-        file = os.path.exists("Templates/" + label.text() + ".docx")
+        file = os.path.exists("Certificates Templates/" + label.text() + ".docx")
         if file:
-            self.Paths[label.text()] = "Templates/" + label.text() + ".docx"
+            self.Paths[label.text()] = "Certificates Templates/" + label.text() + ".docx"
             label.setStyleSheet("color: green")
             button.setStyleSheet("color: green")
             button.setText("Update")
@@ -55,14 +55,14 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
 
 
     def save(self, window):
-        if not os.path.exists("Templates"):
-            os.mkdir("Templates")
+        if not os.path.exists("Certificates Templates"):
+            os.mkdir("Certificates Templates")
 
         for i in self.Paths:
-            if self.Paths[i] == None or self.Paths[i] == "" or self.Paths[i] == "Templates/" + i + ".docx":
+            if self.Paths[i] == None or self.Paths[i] == "" or self.Paths[i] == "Certificates Templates/" + i + ".docx":
                 continue
             try:
-                shutil.copy2(self.Paths[i], "Templates/" + i + ".docx")
+                shutil.copy2(self.Paths[i], "Certificates Templates/" + i + ".docx")
             except:
                 continue
         window.close()

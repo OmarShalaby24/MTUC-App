@@ -8,7 +8,7 @@ class CertificateController:
     def __init__(self, data, workingDir):
         self.data = data
         self.workingDir = workingDir
-        self.template = DocxTemplate("Certificate Template.docx")
+        # self.template = DocxTemplate("Certificate Template.docx")
         self.Loader = ld.LoadData()
 
     def generateCertificate(self):
