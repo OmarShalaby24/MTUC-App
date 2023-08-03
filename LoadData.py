@@ -4,9 +4,10 @@ import os
 
 class LoadData:
     def __init__(self):
-        print(os.path.dirname(os.path.abspath("./dist")))
-        self.path = os.path.dirname(os.path.abspath("./dist"))
+        print(os.getcwd())
+        self.path = os.getcwd()
         self.path = os.path.join(self.path, "Courses Data.xlsx")
+        print(self.path)
         self.wb = openpyxl.load_workbook(self.path)
         self.ws = self.wb.active
 
@@ -60,13 +61,9 @@ class LoadData:
             if courseName == row[1].value:
                 return row[4].value
 
-
-# loader = LoadData()
-# print(loader.getRulesCode(""))
-# loader.coursesWithNoExpireDate()
-
-# LoadData().coursesWithNoExpireDate()
-# LoadData().getCertificateType()
-
-# loader = LoadData()
-# loader.get_data()
+if __name__ == "__main__":
+    loader = LoadData()
+    print(loader.getCoursesList())
+    print(loader.getCertificateType("التعامل مع الحوادث الكيميائية"))
+    print(loader.coursesWithNoExpireDate())
+    print(loader.getRulesCode("التعامل مع الحوادث الكيميائية"))
