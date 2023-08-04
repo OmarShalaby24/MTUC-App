@@ -37,9 +37,9 @@ class CertificateController:
             )
 
         def rev(s):
-            s = s.split("/")
-            s = s[::-1]
-            s = "/".join(s)
+            # s = s.split("/")
+            # s = s[::-1]
+            # s = "/".join(s)
             return s
 
         nonExpireCourses = self.Loader.coursesWithNoExpireDate()
