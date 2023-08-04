@@ -262,7 +262,7 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             Certificate_Data["Issue_date"] = self.Issue_Date.text()
             dateError2 = False
         # TODO: Check for all certificates not just the total number
-        if not os.path.exists("Templates/") or not len(os.listdir("Templates/")) == 8:
+        if not os.path.exists("Certificates Templates/") or not len(os.listdir("Certificates Templates/")) == 8:
             error = True
             self.uploadCerts.setStyleSheet("border: 1px solid red;")
         else:

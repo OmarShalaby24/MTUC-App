@@ -14,7 +14,8 @@ class CertificateController:
     def generateCertificate(self):
         # get my current path
         TemplatePath = (
-            str(Path(__file__).parent.absolute())
+            # str(Path(__file__).parent.absolute())
+            os.getcwd()
             + "/Certificates Templates/"
             + self.selectTemplate(self.data["Course_En"])
         )
