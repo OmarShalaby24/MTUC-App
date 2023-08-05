@@ -15,7 +15,7 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
             {"label": self.ECDISman, "button": self.ECDISmanUploadBtn, "pathLabel": self.path_5},
             {"label": self.ECDISop, "button": self.ECDISopUploadBtn, "pathLabel": self.path_6},
             {"label": self.CSO, "button": self.CSOUploadBtn, "pathLabel": self.path_7},
-            {"label": self.PSSO, "button": self.PSSOUploadBtn, "pathLabel": self.path_8},
+            {"label": self.PFSO, "button": self.PFSOUploadBtn, "pathLabel": self.path_8},
         ]
         for i in self.list:
             self.checkTemplates(i["label"], i["button"])
@@ -27,7 +27,7 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
         self.ECDISmanUploadBtn.clicked.connect(lambda: self.uploadCert(self.list[4]))
         self.ECDISopUploadBtn.clicked.connect(lambda: self.uploadCert(self.list[5]))
         self.CSOUploadBtn.clicked.connect(lambda: self.uploadCert(self.list[6]))
-        self.PSSOUploadBtn.clicked.connect(lambda: self.uploadCert(self.list[7]))
+        self.PFSOUploadBtn.clicked.connect(lambda: self.uploadCert(self.list[7]))
 
         self.SaveBtn.clicked.connect(lambda: self.save(window))
         self.CancelBtn.clicked.connect(window.close)
