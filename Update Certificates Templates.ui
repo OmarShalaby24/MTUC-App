@@ -113,7 +113,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PSSO</string>
+    <string>PFSO</string>
    </property>
   </widget>
   <widget class="QLabel" name="BST">
@@ -220,7 +220,7 @@
     <string>Upload</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="PSSOUploadBtn">
+  <widget class="QPushButton" name="PFSOUploadBtn">
    <property name="geometry">
     <rect>
      <x>360</x>
