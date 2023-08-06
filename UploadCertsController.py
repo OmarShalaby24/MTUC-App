@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QWidget, QFileDialog
 import UploadCerts, os, shutil
 
@@ -6,6 +6,7 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
     def __init__(self, window):
         super().__init__()
         self.setupUi(window)
+        window.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
         self.Paths = {}
         self.list = [
             {"label": self.Brackets, "button": self.BracketsUploadBtn, "pathLabel": self.path_1},

@@ -8,8 +8,7 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(MainApp)
-        self.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
-        self.setWindowTitle("MTUC Certificate Generator")
+        MainApp.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
         self.WorkingDirectoryPath = ""
         self.CourseHasExpireDate = True
         self.pickDirectory.clicked.connect(self.SelectDirectory)

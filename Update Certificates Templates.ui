@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Upload Certificates</string>
   </property>
   <widget class="QPushButton" name="BracketsUploadBtn">
    <property name="geometry">
@@ -103,7 +103,7 @@
     <string>GMDSS</string>
    </property>
   </widget>
-  <widget class="QLabel" name="PSSO">
+  <widget class="QLabel" name="PFSO">
    <property name="geometry">
     <rect>
      <x>10</x>
