@@ -102,6 +102,11 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+    </font>
+   </property>
    <property name="text">
     <string>Select Working Folder</string>
    </property>
@@ -114,6 +119,11 @@
      <width>421</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+    </font>
    </property>
    <property name="text">
     <string/>
@@ -303,6 +313,11 @@
      <width>851</width>
      <height>0</height>
     </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+    </font>
    </property>
    <property name="text">
     <string>Date of Birth</string>
@@ -706,6 +721,11 @@
      <height>20</height>
     </size>
    </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+    </font>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -766,6 +786,11 @@
      <width>131</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+    </font>
    </property>
    <property name="text">
     <string>Upload Certificates</string>
