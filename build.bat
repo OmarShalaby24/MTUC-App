@@ -1,1 +1,1 @@
-pyinstaller -F --add-data "Website Template.xlsx;." --add-data "MTUCIcon.ico;." --add-data "MTUCLogo.png;." --add-data "Courses Data.xlsx;." app.py
+pyinstaller -n "MTUC APP" --icon="MTUCIcon.ico" --add-data "MTUCLogo.png;." -F .\app.py
