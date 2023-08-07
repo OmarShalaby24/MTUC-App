@@ -17,12 +17,10 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         self.To.setDate(QtCore.QDate.currentDate())
         self.From.setDate(QtCore.QDate.currentDate())
         self.Issue_Date.setDate(datetime.now())
-        if not os.path.exists("Certificates Templates/") or not len(os.listdir("Certificates Templates/")) == 8:
-            self.CertError.setText("⚠Warning: Some Templates are missing.")
-            self.CertError.setStyleSheet("color: #ffcc00;")
-        else:
-            self.CertError.setText("✔️ Template Exists")
-            self.CertError.setStyleSheet("")
+        self.warning = "⚠Warning: Some Templates are missing."
+        if os.path.exists("Certificates Templates/") and len(os.listdir("Certificates Templates/")) == 8:
+            self.warning = ""
+        self.CertError.setText(self.warning)
         self.Expire_Date.setDate(
             QtCore.QDate(
                 datetime.strptime(self.To.text(), "%d/%m/%Y").year + 5,
@@ -116,7 +114,7 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
 
     def checkTemplateExists(self, msg, courseName=""):
         if os.path.exists("Certificates Templates/"+self.loader.getCertificateType(courseName)+".docx"):
-            self.CertError.setText("✔️ Template Exists")
+            self.CertError.setText(self.warning + " ✔️ Template Exists")
             self.CertError.setStyleSheet("")
             return True
         else:
@@ -177,14 +175,12 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
                 error = True
             else:
                 self.fromWhere_en.setStyleSheet("")
-                # error = False
                 Certificate_Data["FromWhere_En"] = self.fromWhere_en.text()
             if self.fromWhere_ar.text() == "":
                 self.fromWhere_ar.setStyleSheet("border: 1px solid red;")
                 error = True
             else:
                 self.fromWhere_ar.setStyleSheet("")
-                # error = False
                 Certificate_Data["FromWhere_Ar"] = self.fromWhere_ar.text()
         #TODO: check if in the database (Future Work)
         # if self.CertNo.text() == "":
@@ -233,7 +229,6 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         else:
             self.Date_of_Birth.setStyleSheet("")
             Certificate_Data["Date_of_Birth"] = self.Date_of_Birth.text()
-            # error = False
         print("trace error 8:",error)
         #TODO: check if in the database (Future Work)
         # if self.regNo.text() == "":
@@ -286,16 +281,6 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             self.Issue_Date.setStyleSheet("")
             Certificate_Data["Issue_date"] = self.Issue_Date.text()
             dateError2 = False
-        # TODO: Check for all certificates not just the total number
-        # if not os.path.exists("Certificates Templates/") or not len(os.listdir("Certificates Templates/")) == 8:
-        #     error = True
-        #     self.uploadCerts.setStyleSheet("border: 1px solid red;")
-        # else:
-        #     error = False
-        #     self.uploadCerts.setStyleSheet("")
-        # print(Certificate_Data["Course_En"])
-        # if Certificate_Data["Course_En"] != None:
-        
 
         if error == False and dateError1 == False and dateError2 == False:
             try:
@@ -331,11 +316,11 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
                     os.remove(path)
             except Exception as e:
                 print(e)
-                self.resultLabel.setText("⚠Check your Entries1")
+                self.resultLabel.setText("⚠Error Creating Certificate")
                 self.resultLabel.setStyleSheet("color: red;")
         else:
             try:
-                self.resultLabel.setText("⚠Check your Entries2")
+                self.resultLabel.setText("⚠Check your Entries")
                 self.resultLabel.setStyleSheet("color: red;")
             except Exception as e:
                 print(e)
