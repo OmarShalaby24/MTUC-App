@@ -67,7 +67,7 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
                 shutil.copy2(self.Paths[i], "Certificates Templates/" + i + ".docx")
             except:
                 continue
-        self.label.setText("✔️")
+        self.label.setText("✔️ Certificates Templates Updated")
         window.close()
 
 if __name__ == "__main__":

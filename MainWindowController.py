@@ -113,6 +113,8 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             self.autoSetExpireDate()
 
     def checkTemplateExists(self, msg, courseName=""):
+        if os.path.exists("Certificates Templates/") and len(os.listdir("Certificates Templates/")) == 8:
+            self.warning = ""
         if os.path.exists("Certificates Templates/"+self.loader.getCertificateType(courseName)+".docx"):
             self.CertError.setText(self.warning + " ✔️ Template Exists")
             self.CertError.setStyleSheet("")
