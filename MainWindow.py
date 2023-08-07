@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'C:\Users\Ibrahim\New folder\MTUC-App\MTUC Certificate Generator.ui'
+# Form implementation generated from reading ui file '.\MTUC Certificate Generator.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.1
 #
@@ -292,6 +292,12 @@ class Ui_MainWindow(object):
         font.setFamily("Times New Roman")
         self.uploadCerts.setFont(font)
         self.uploadCerts.setObjectName("uploadCerts")
+        self.CertError = QtWidgets.QLabel(parent=MainWindow)
+        self.CertError.setGeometry(QtCore.QRect(630, 90, 421, 21))
+        self.CertError.setAcceptDrops(False)
+        self.CertError.setText("")
+        self.CertError.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
+        self.CertError.setObjectName("CertError")
 
         self.retranslateUi(MainWindow)
         self.isPersonal.toggled['bool'].connect(self.fromWhere_en.setDisabled) # type: ignore

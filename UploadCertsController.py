@@ -3,9 +3,10 @@ from PyQt6.QtWidgets import QWidget, QFileDialog
 import UploadCerts, os, shutil
 
 class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
-    def __init__(self, window):
+    def __init__(self, window, statLabel):
         super().__init__()
         self.setupUi(window)
+        self.label = statLabel
         window.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
         self.Paths = {}
         self.list = [
@@ -66,6 +67,7 @@ class UploadCertsController(UploadCerts.Ui_UploadCerts, QWidget):
                 shutil.copy2(self.Paths[i], "Certificates Templates/" + i + ".docx")
             except:
                 continue
+        self.label.setText("✔️")
         window.close()
 
 if __name__ == "__main__":

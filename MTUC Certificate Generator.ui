@@ -796,6 +796,25 @@
     <string>Upload Certificates</string>
    </property>
   </widget>
+  <widget class="QLabel" name="CertError">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>90</y>
+     <width>421</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

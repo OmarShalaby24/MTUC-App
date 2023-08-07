@@ -5,3 +5,4 @@ build
 dist
 *.spec
 results
+*.cpython-311.pyc
