@@ -6,7 +6,7 @@ class LoadData:
     def __init__(self):
         print(os.getcwd())
         self.path = os.getcwd()
-        self.path = os.path.join(self.path, "Courses Data.xlsx")
+        self.path = os.path.join(self.path, "assets/Courses Data.xlsx")
         print(self.path)
         self.wb = openpyxl.load_workbook(self.path)
         self.ws = self.wb.active

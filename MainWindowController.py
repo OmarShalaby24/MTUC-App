@@ -1,14 +1,20 @@
-from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import  QWidget, QMessageBox, QFileDialog
+from PyQt6 import QtWidgets, QtCore, QtGui, uic
+from PyQt6.QtWidgets import QWidget, QMessageBox, QFileDialog
 import MainWindow, WebController, CertificateController, os, win32api
 from datetime import datetime
 import LoadData as DataLoader
+from pathlib import Path
 
-class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
+
+class MainWindowController(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setupUi(MainApp)
-        MainApp.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
+        # self.setupUi(MainApp)
+
+        uiPath = str(Path(__file__).parent.absolute()) + "\Main Window.ui"
+        uic.loadUi(uiPath, self)
+
+        self.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
         self.WorkingDirectoryPath = ""
         self.CourseHasExpireDate = True
         self.pickDirectory.clicked.connect(self.SelectDirectory)
@@ -18,7 +24,10 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         self.From.setDate(QtCore.QDate.currentDate())
         self.Issue_Date.setDate(datetime.now())
         self.warning = "⚠Warning: Some Templates are missing."
-        if os.path.exists("Certificates Templates/") and len(os.listdir("Certificates Templates/")) == 8:
+        if (
+            os.path.exists("Certificates Templates/")
+            and len(os.listdir("Certificates Templates/")) == 8
+        ):
             self.warning = ""
         self.CertError.setText(self.warning)
         self.Expire_Date.setDate(
@@ -46,6 +55,28 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         self.isPersonal.clicked.connect(self.styleFromWhere)
 
         self.uploadCerts.clicked.connect(self.openUploadWindow)
+
+        self.exit.clicked.connect(self.close)
+
+        self.issuer.addItems(["رشا صبرى", "شيماء محمد"])
+
+        header = self.tableWidget.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(
+            1, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        )
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(
+            5, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        )
+        header.setSectionResizeMode(
+            6, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        )
+        header.setSectionResizeMode(
+            7, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        )
 
     def on_focusChanged(self):
         widget = app.focusWidget()
@@ -113,9 +144,16 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             self.autoSetExpireDate()
 
     def checkTemplateExists(self, msg, courseName=""):
-        if os.path.exists("Certificates Templates/") and len(os.listdir("Certificates Templates/")) == 8:
+        if (
+            os.path.exists("Certificates Templates/")
+            and len(os.listdir("Certificates Templates/")) == 8
+        ):
             self.warning = ""
-        if os.path.exists("Certificates Templates/"+self.loader.getCertificateType(courseName)+".docx"):
+        if os.path.exists(
+            "Certificates Templates/"
+            + self.loader.getCertificateType(courseName)
+            + ".docx"
+        ):
             self.CertError.setText(self.warning + " ✔️ Template Exists")
             self.CertError.setStyleSheet("")
             return True
@@ -151,7 +189,7 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             error = True
         else:
             self.pickDirectory.setStyleSheet("")
-        print("trace error 1:",error)
+        print("trace error 1:", error)
         if self.course.currentText() == "":
             self.course.setStyleSheet("border: 1px solid red;")
             Certificate_Data["CertNo"] = ""
@@ -165,9 +203,11 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             code = arabicCourseName[-1].split("(")[1].split(")")[0]
             del arabicCourseName[-1]
             Certificate_Data["Course_Ar"] = " ".join(arabicCourseName)
-            error = not self.checkTemplateExists("⚠Certificate Template Not Found", Certificate_Data["Course_En"])
+            error = not self.checkTemplateExists(
+                "⚠Certificate Template Not Found", Certificate_Data["Course_En"]
+            )
 
-        print("trace error 2:",error)
+        print("trace error 2:", error)
         if self.isPersonal.isChecked():
             Certificate_Data["FromWhere_En"] = "PERSONAL"
             Certificate_Data["FromWhere_Ar"] = "على نفقته الشخصية"
@@ -184,42 +224,42 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
             else:
                 self.fromWhere_ar.setStyleSheet("")
                 Certificate_Data["FromWhere_Ar"] = self.fromWhere_ar.text()
-        #TODO: check if in the database (Future Work)
+        # TODO: check if in the database (Future Work)
         # if self.CertNo.text() == "":
         #     self.CertNo.setStyleSheet("border: 1px solid red;")
         #     error = True
         # else:
         #     self.CertNo.setStyleSheet("")
         #     Certificate_Data["CertNo"] = Certificate_Data["CertNo"] + self.CertNo.text()
-        print("trace error 3:",error)
+        print("trace error 3:", error)
         if self.Name_En.text() == "":
             self.Name_En.setStyleSheet("border: 1px solid red;")
             error = True
         else:
             self.Name_En.setStyleSheet("")
             Certificate_Data["Name_En"] = self.Name_En.text()
-        print("trace error 4:",error)
+        print("trace error 4:", error)
         if self.Name_Ar.text() == "":
             self.Name_Ar.setStyleSheet("border: 1px solid red;")
             error = True
         else:
             self.Name_Ar.setStyleSheet("")
             Certificate_Data["Name_Ar"] = self.Name_Ar.text()
-        print("trace error 5:",error)
+        print("trace error 5:", error)
         if self.Place_of_Birth_En.text() == "":
             self.Place_of_Birth_En.setStyleSheet("border: 1px solid red;")
             error = True
         else:
             self.Place_of_Birth_En.setStyleSheet("")
             Certificate_Data["Place_of_Birth_En"] = self.Place_of_Birth_En.text()
-        print("trace error 6:",error)
+        print("trace error 6:", error)
         if self.Place_of_Birth_Ar.text() == "":
             self.Place_of_Birth_Ar.setStyleSheet("border: 1px solid red;")
             error = True
         else:
             self.Place_of_Birth_Ar.setStyleSheet("")
             Certificate_Data["Place_of_Birth_Ar"] = self.Place_of_Birth_Ar.text()
-        print("trace error 7:",error)
+        print("trace error 7:", error)
         BirthDate = datetime(
             int(self.Date_of_Birth.text().split("/")[2]),
             int(self.Date_of_Birth.text().split("/")[1]),
@@ -231,8 +271,8 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
         else:
             self.Date_of_Birth.setStyleSheet("")
             Certificate_Data["Date_of_Birth"] = self.Date_of_Birth.text()
-        print("trace error 8:",error)
-        #TODO: check if in the database (Future Work)
+        print("trace error 8:", error)
+        # TODO: check if in the database (Future Work)
         # if self.regNo.text() == "":
         #     self.regNo.setStyleSheet("border: 1px solid red;")
         #     error = True
@@ -326,23 +366,29 @@ class MainWindowController(MainWindow.Ui_MainWindow, QWidget):
                 self.resultLabel.setStyleSheet("color: red;")
             except Exception as e:
                 print(e)
+
     def openUploadWindow(self):
         from UploadCerts import Ui_UploadCerts
         import UploadCertsController
+
         self.uploadWindow = QtWidgets.QWidget()
-        self.ui = UploadCertsController.UploadCertsController(self.uploadWindow, self.CertError)
+        self.ui = UploadCertsController.UploadCertsController(
+            self.uploadWindow, self.CertError
+        )
         self.uploadWindow.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
         self.uploadWindow.show()
 
+
 def render():
     import sys
+
     global app
     app = QtWidgets.QApplication(sys.argv)
-    global MainApp
-    MainApp = QtWidgets.QWidget()
+
     ui = MainWindowController()
-    MainApp.show()
-    sys.exit(app.exec())
+    ui.showFullScreen()
+    app.exec()
+
 
 if __name__ == "__main__":
     render()
