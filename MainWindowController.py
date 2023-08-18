@@ -1,6 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui, uic
 from PyQt6.QtWidgets import QWidget, QMessageBox, QFileDialog
-import MainWindow, WebController, CertificateController, os, win32api
+import WebController, CertificateController, os, win32api
 from datetime import datetime
 import LoadData as DataLoader
 from pathlib import Path
