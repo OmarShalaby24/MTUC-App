@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1225</width>
+    <width>1231</width>
     <height>1155</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>MTUC App</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
@@ -49,7 +49,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Certificate Creator</string>
+         <string>MTUC - Certificate Printing Department</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -984,6 +984,9 @@
           <height>25</height>
          </size>
         </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
         <property name="editable">
          <bool>true</bool>
         </property>
@@ -1082,6 +1085,9 @@
           <width>68</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
         </property>
         <property name="editable">
          <bool>false</bool>

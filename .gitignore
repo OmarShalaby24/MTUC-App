@@ -1,8 +1,7 @@
 __pycache__
-*.docx
-*.doc
 build
 dist
 *.spec
 results
 *.cpython-311.pyc
+assets
