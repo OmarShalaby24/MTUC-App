@@ -1,6 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui, uic
 from PyQt6.QtWidgets import QWidget, QMessageBox, QFileDialog
-import WebController, CertificateController, os, win32api
+import WebController, CertificateController, LetterController, os, win32api
 from datetime import datetime
 import LoadData as DataLoader
 from pathlib import Path
@@ -62,21 +62,66 @@ class MainWindowController(QtWidgets.QMainWindow):
 
         header = self.tableWidget.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setSectionResizeMode(
-            1, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
-        )
-        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.Fixed)
         header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setSectionResizeMode(
-            5, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(8, QtWidgets.QHeaderView.ResizeMode.Fixed)
+        self.AddButton.clicked.connect(self.addRecord)
+
+    def addRecord(self):
+        row = self.tableWidget.rowCount()
+        self.tableWidget.insertRow(row)
+        course = self.course.currentText().split(" - ")[1].split(" ")
+        course = course[:-1]
+        course = " ".join(course)
+        letterRecord = {
+            "name": self.Name_Ar.text(),
+            "serial": self.courseCode.text() + self.CertNo.text(),
+            "reg": self.regCode.currentText() + self.regNo.text(),
+            "course": course,
+            "from": self.From.text(),
+            "to": self.To.text(),
+            "expire": self.Expire_Date.text(),
+            "nationality": self.nationality.currentText(),
+            "passport": self.Passport.text(),
+            "status": self.status.currentText(),
+        }
+        self.tableWidget.setItem(
+            row, 0, QtWidgets.QTableWidgetItem(letterRecord["name"])
         )
-        header.setSectionResizeMode(
-            6, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        self.tableWidget.setItem(
+            row, 1, QtWidgets.QTableWidgetItem(letterRecord["serial"])
         )
-        header.setSectionResizeMode(
-            7, QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        self.tableWidget.setItem(
+            row, 2, QtWidgets.QTableWidgetItem(letterRecord["reg"])
         )
+        self.tableWidget.setItem(
+            row, 3, QtWidgets.QTableWidgetItem(letterRecord["course"])
+        )
+        self.tableWidget.setItem(
+            row,
+            4,
+            QtWidgets.QTableWidgetItem(
+                letterRecord["from"] + " الى " + letterRecord["to"]
+            ),
+        )
+        self.tableWidget.setItem(
+            row, 5, QtWidgets.QTableWidgetItem(letterRecord["expire"])
+        )
+        self.tableWidget.setItem(
+            row, 6, QtWidgets.QTableWidgetItem(letterRecord["nationality"])
+        )
+        self.tableWidget.setItem(
+            row, 7, QtWidgets.QTableWidgetItem(letterRecord["passport"])
+        )
+        self.tableWidget.setItem(
+            row, 8, QtWidgets.QTableWidgetItem(letterRecord["status"])
+        )
+        print("added")
 
     def on_focusChanged(self):
         widget = app.focusWidget()
@@ -323,6 +368,16 @@ class MainWindowController(QtWidgets.QMainWindow):
             self.Issue_Date.setStyleSheet("")
             Certificate_Data["Issue_date"] = self.Issue_Date.text()
             dateError2 = False
+        if self.issuer.currentText() == "":
+            self.issuer.setStyleSheet("border: 1px solid red;")
+        else:
+            print(self.issuer.currentText())
+            self.issuer.setStyleSheet("")
+        if self.NationalID.text() == "":
+            error = True
+            self.NationalID.setStyleSheet("border: 1px solid red;")
+        else:
+            self.NationalID.setStyleSheet("")
 
         if error == False and dateError1 == False and dateError2 == False:
             try:
@@ -335,7 +390,9 @@ class MainWindowController(QtWidgets.QMainWindow):
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
                 )
                 Certificate_Data["Expire_date"] = self.Expire_Date.text()
-                Certificate_Data["RegNo"] = "H" + f"{int(self.regNo.text()):07d}"
+                Certificate_Data["RegNo"] = (
+                    self.NationalID.text() + f"{int(self.regNo.text()):07d}"
+                )
                 Certificate_Data["Rules"] = self.rulesCode.text()
                 self.resultLabel.setText("Created Successfully")
                 self.resultLabel.setStyleSheet("color: green;")
@@ -343,6 +400,8 @@ class MainWindowController(QtWidgets.QMainWindow):
                     Certificate_Data, self.WorkingDirectoryPath
                 )
                 path = certificateGenerator.generateCertificate()
+                letter = LetterController()
+                letter.generate_letter(letterData, self.WorkingDirectoryPath)
                 try:
                     print(self.WorkingDirectoryPath)
                     recordAdder = WebController.WebController(self.WorkingDirectoryPath)
@@ -356,6 +415,8 @@ class MainWindowController(QtWidgets.QMainWindow):
                 except Exception as e:
                     print(e)
                     os.remove(path)
+                    self.resultLabel.setText("Something Went Wrong")
+                self.resultLabel.setStyleSheet("color: red;")
             except Exception as e:
                 print(e)
                 self.resultLabel.setText("⚠Error Creating Certificate")

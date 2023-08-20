@@ -977,6 +977,24 @@
        </widget>
       </item>
       <item>
+       <widget class="QComboBox" name="nationality">
+        <property name="minimumSize">
+         <size>
+          <width>68</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>مصرى</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_11">
         <property name="font">
          <font>
@@ -1055,6 +1073,32 @@
        </spacer>
       </item>
       <item>
+       <widget class="QComboBox" name="status">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>68</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>مدني</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>عسكري</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
        <widget class="QLineEdit" name="Place_of_Birth_Ar">
         <property name="minimumSize">
          <size>
@@ -1099,6 +1143,31 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_11">
       <item>
+       <widget class="QLineEdit" name="NationaID">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="maxLength">
+         <number>14</number>
+        </property>
+        <property name="placeholderText">
+         <string>National ID</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_8">
         <property name="font">
          <font>
@@ -1117,7 +1186,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="regCode">
         <property name="minimumSize">
          <size>
           <width>89</width>
@@ -1207,6 +1276,31 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="Passport">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="maxLength">
+         <number>10</number>
+        </property>
+        <property name="placeholderText">
+         <string>Passport</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -1305,6 +1399,9 @@
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
       <column>
        <property name="text">
         <string>الإســـــــــــــــم</string>
@@ -1322,6 +1419,18 @@
          <green>255</green>
          <blue>255</blue>
         </color>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Serial No.</string>
+       </property>
+       <property name="font">
+        <font>
+         <family>Times New Roman</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
        </property>
       </column>
       <column>
@@ -1488,6 +1597,37 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>exit</tabstop>
+  <tabstop>pickDirectory</tabstop>
+  <tabstop>uploadCerts</tabstop>
+  <tabstop>issuer</tabstop>
+  <tabstop>course</tabstop>
+  <tabstop>isPersonal</tabstop>
+  <tabstop>fromWhere_en</tabstop>
+  <tabstop>fromWhere_ar</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>Expire_Date</tabstop>
+  <tabstop>From</tabstop>
+  <tabstop>To</tabstop>
+  <tabstop>Issue_Date</tabstop>
+  <tabstop>CertNo</tabstop>
+  <tabstop>autoCaps</tabstop>
+  <tabstop>Name_En</tabstop>
+  <tabstop>Name_Ar</tabstop>
+  <tabstop>Place_of_Birth_En</tabstop>
+  <tabstop>Place_of_Birth_Ar</tabstop>
+  <tabstop>nationality</tabstop>
+  <tabstop>status</tabstop>
+  <tabstop>Date_of_Birth</tabstop>
+  <tabstop>NationaID</tabstop>
+  <tabstop>regCode</tabstop>
+  <tabstop>regNo</tabstop>
+  <tabstop>Passport</tabstop>
+  <tabstop>AddButton</tabstop>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>CreateButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
