@@ -1,6 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui, uic
 from PyQt6.QtWidgets import QWidget, QMessageBox, QFileDialog
-import WebController, CertificateController, LetterController, os, win32api
+import WebController, CertificateController, LetterController, os, platform
 from datetime import datetime
 import LoadData as DataLoader
 from pathlib import Path
@@ -11,14 +11,16 @@ class MainWindowController(QtWidgets.QMainWindow):
         super().__init__()
         # self.setupUi(MainApp)
 
-        uiPath = str(Path(__file__).parent.absolute()) + "\Main Window.ui"
+        uiPath = str(Path(__file__).parent.absolute()) + "/main window.ui"
         uic.loadUi(uiPath, self)
 
         self.setWindowIcon(QtGui.QIcon("MTUCLogo.png"))
         self.WorkingDirectoryPath = ""
         self.CourseHasExpireDate = True
         self.pickDirectory.clicked.connect(self.SelectDirectory)
-        self.defaultLang = win32api.GetKeyboardLayout(0)
+        if platform.system() == "Windows":
+            import win32api
+            self.defaultLang = win32api.GetKeyboardLayout(0)
         # Date Initialization
         self.To.setDate(QtCore.QDate.currentDate())
         self.From.setDate(QtCore.QDate.currentDate())
